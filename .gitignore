@@ -1,2 +1,19 @@
+# python cache
+__pycache__
+.pytest_cache
+
+# coverage 
+.coverage
+htmlcov
+
 # virtual environments
-.venv/
+.venv
+
+# vscode 
+.vscode
+
+# env
+.env
+
+# docker volumes
+data/
