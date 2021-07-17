@@ -1,14 +1,12 @@
 import pytest
 
 from fastapi.testclient import TestClient
-from sqlalchemy import create_engine
-from sqlalchemy.orm import sessionmaker
 
 from app.config.config import config, BASEDIR
 config.set_mode("testing")
-engine = create_engine(config.get_mode().SQLALCHEMY_DATABASE_URI, connect_args={"check_same_thread": False})
 
-from app import init_db, del_db, create_app
+from app import create_app
+from app.modules.database import get_db
 
 @pytest.fixture
 def app():
@@ -23,11 +21,10 @@ def client(app):
 
 @pytest.fixture
 def db():
-    del_db(engine)
-    init_db(engine)
-    TestingSessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
-    database = TestingSessionLocal()
-    
+    get_db.del_db()
+    get_db.init_db()
+
+    database = get_db()   
 
     with open(f"{BASEDIR}/tests/data.sql", 'rb') as f:
         _data_sql = f.read().decode('utf-8')
