@@ -1,3 +1,4 @@
+import os
 import pytest
 
 from fastapi.testclient import TestClient
@@ -21,7 +22,6 @@ def client(app):
 
 @pytest.fixture
 def db():
-    get_db.del_db()
     get_db.init_db()
 
     database = get_db()   
@@ -34,4 +34,10 @@ def db():
 
     database.commit()
 
-    return database
+    try:
+        yield database
+    finally:
+        database.close()
+
+    get_db.del_db()
+    

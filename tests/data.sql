@@ -1,11 +1,12 @@
-INSERT INTO users (name, password)
+INSERT INTO users (name, password, status)
 VALUES
-    ('test1', 'test_password'),
-    ('test2', 'test_password');
+    ('one_description_user', 'test_password', 1),
+    ('multy_description_user', 'test_password', 1),
+    ('no_description_user', 'test_password', 1);
 
 ---
 
-INSERT INTO user_descriptions (name)
+INSERT INTO information_descriptions (name)
 VALUES
     ('email'),
     ('tag');

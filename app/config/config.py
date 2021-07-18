@@ -1,3 +1,4 @@
+from io import SEEK_CUR
 import os
 from dotenv import load_dotenv
 load_dotenv()
@@ -12,16 +13,18 @@ def create_sqlite_uri(db_name):
 
 class BaseConfig:
     SECRET_KEY = SECRET_KEY
-    ENGINE = ""
+    MODE = "Default"
+    ENGINE = "No Engine"
+    LOG = "DEBUG"
 
 class DevelopmentConfig(BaseConfig):
-    username = os.getenv('AUTH_SERVICE_DB')
-    password = os.getenv('AUTH_USER')
-    tablename = os.getenv('AUTH_PASSWORD')
+    tablename = os.getenv('AUTH_SERVICE_DB')
+    username = os.getenv('AUTH_USER')
+    password = os.getenv('AUTH_PASSWORD')
     MODE = "DEVELOPMENT"
     DEBUG = False
     SQLALCHEMY_TRACK_MODIFICATIONS = False
-    SQLALCHEMY_DATABASE_URI = f'mysql+pymysql://${username}:${password}@172.27.0.3:3306/${tablename}'
+    SQLALCHEMY_DATABASE_URI = f'mysql+pymysql://{username}:{password}@localhost:3306/{tablename}'
     ENGINE = create_engine(SQLALCHEMY_DATABASE_URI)
 
 class TestingConfig(BaseConfig):
