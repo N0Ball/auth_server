@@ -12,6 +12,11 @@ router = APIRouter(
     }
 )
 
-@router.get('/{user_id}', response_model=schemas.User)
-async def get_user_by_id(user_id: int):
-    return auth.get_user(uid=user_id)
+@router.get('/{user_info}', response_model=schemas.User)
+async def get_user_by_name_or_id(user_info: str):
+
+    if user_info.isnumeric():
+        return auth.get_user(uid=user_info)
+
+    return auth.get_user(name=user_info)
+    

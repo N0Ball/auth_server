@@ -1,7 +1,7 @@
 from fastapi import HTTPException
 
 from app.modules.database import crud, schemas, models
-from app.modules.lib import validation
+from app.modules.lib import validation, hash
 
 def get_user(uid: int = None, name: str = None, not_none=True) -> models.User:
     
@@ -25,11 +25,12 @@ def create_user(new_user: schemas.UserCreate) -> models.User:
         raise HTTPException(409, "user already exists")
 
     if not validation.validate_user_name(new_user.name):
-        raise HTTPException(422, "username has to be only letters, numbers, '_' and '-' with 3 to 25 characters")
+        raise HTTPException(422, "username has to start with letters and contains only letters, numbers, '_' and '-' with 4 to 25 characters")
 
     if not validation.validate_password(new_user.password):
         raise HTTPException(422, "password has to be minimum eight characters, at least one letter and one number")
 
+    new_user.password = hash.hash_password(new_user.password)
     new_user = crud.create_user(new_user)
 
     return new_user

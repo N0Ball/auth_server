@@ -1,6 +1,6 @@
 INSERT INTO users (name, password, status)
 VALUES
-    ('default_user', 'default_password', 1),
+    ('default_user', '$2b$12$j4pNHP1Ni4sXa1NOrO8Ww.vs9/Fq0Sa39lfFBXIiozLeMGluS.yui', 1),
     ('one_description_user', 'test_password', 1),
     ('multy_description_user', 'test_password', 1),
     ('no_description_user', 'test_password', 1);

@@ -27,7 +27,7 @@ class UserInfo(Base):
     id = Column(Integer, primary_key=True, index=True)
     description_id = Column(Integer, ForeignKey("information_descriptions.id"), index=True)
     uid = Column(Integer, ForeignKey("users.uid"), index=True)
-    information = Column(String(50))
+    information = Column(String(512))
     create_time = Column(DateTime, default=datetime.utcnow)
     update_time = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
 
