@@ -1,12 +1,22 @@
+import logging
+
 from fastapi import FastAPI
+from fastapi.logger import logger
+
+gunicorn_logger = logging.getLogger('gunicorn.error')
+logger.handlers = gunicorn_logger.handlers
 
 from .config.config import config
 
 def create_app():
     
-    app = FastAPI(**config.get_mode().__dict__)
+    app = FastAPI(config=config.get_mode())
 
-    from app.routes import base
+    logger.setLevel(app.extra['config'].LOG)
+
+    from app.routes import base, auth, user
     app.include_router(base.router)
+    app.include_router(auth.router)
+    app.include_router(user.router)
 
     return app
