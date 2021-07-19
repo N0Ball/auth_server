@@ -7,7 +7,7 @@ EXPIRED_TOKEN = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJkZWZhdWx0X3VzZX
 
 def test_add_new_user(client: TestClient, db):
     response = client.post(
-        '/auth/register',
+        '/user/create',
         json={
             'name': 'new-user',
             'password': 'passw0rd!'
@@ -27,7 +27,7 @@ def test_add_new_user(client: TestClient, db):
 
 def test_add_exist_user(client: TestClient, db):
     response = client.post(
-        '/auth/register',
+        '/user/create',
         json={
             'name': 'default_user',
             'password': 'passw0rd!'
@@ -53,7 +53,7 @@ def test_add_exist_user(client: TestClient, db):
 ))
 def test_creat_user_validation_failed(client: TestClient, db, username, password, expected_value):
     response = client.post(
-        '/auth/register',
+        '/user/create',
         json={
             'name': username,
             'password': password
@@ -75,7 +75,7 @@ def test_creat_user_validation_failed(client: TestClient, db, username, password
 ))
 def test_get_user_by_id(client: TestClient, db, id, name, infos):
 
-    response = client.get(f'/user/{id}')
+    response = client.get(f'/user/search/{id}')
     assert 200 == response.status_code
     assert infos == response.json()['informations']
     sql = f"""
@@ -85,14 +85,14 @@ def test_get_user_by_id(client: TestClient, db, id, name, infos):
 
 def test_get_user_by_name(client: TestClient, db):
 
-    response = client.get('/user/default_user')
+    response = client.get('/user/search/default_user')
 
     assert 200 == response.status_code
     assert 'default_user' in response.json()['name']
 
 def test_get_no_user_id(client: TestClient, db):
 
-    response = client.get('user/100')
+    response = client.get('user/search/100')
     assert 404 == response.status_code
     assert 'user not found' == response.json()['detail']
 
