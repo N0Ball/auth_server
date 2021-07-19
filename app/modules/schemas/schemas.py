@@ -7,6 +7,7 @@ class UserBase(BaseModel):
 
 class UserCreate(UserBase):
     password: str
+    roles: Optional[str] = None
 
 class UserInfoBase(BaseModel):
     information: str
@@ -31,7 +32,7 @@ class UserInfo(UserInfoBase):
 class User(UserBase):
     uid: int
     status: int
-    role: Optional[str] = None
+    roles: Optional[str] = None
 
     informations: List[UserInfo]
 

@@ -13,11 +13,6 @@ router = APIRouter(
     }
 )
 
-
-@router.post('/create')
-async def register(current_user: schemas.UserCreate):
-    return user.create_user(current_user)
-
 @router.get("/me", response_model=schemas.User)
 async def read_users_me(current_user: schemas.User = Depends(auth.get_current_active_user)):
     return current_user

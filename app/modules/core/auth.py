@@ -1,11 +1,10 @@
-from typing import Optional
 from datetime import datetime, timedelta
 
 from jose import JWTError, jwt
 from fastapi import Depends, HTTPException
 from fastapi.security import OAuth2PasswordBearer
 
-from app.config.config import SECRET_KEY, config, ALGORITHM, ACCESS_TOKEN_EXPIRE_MINUTES
+from app.config.config import config, ALGORITHM, ACCESS_TOKEN_EXPIRE_MINUTES
 SECRET_KEY = config.get_mode().SECRET_KEY
 from app.modules.lib import hash
 from app.modules.schemas import schemas

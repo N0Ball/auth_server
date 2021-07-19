@@ -15,4 +15,3 @@ def get_user_by_id(id: int) -> models.User:
 
 def get_user_by_name(name: str) -> models.User:
     return db.query(models.User).filter(models.User.name == name).first()
-    
