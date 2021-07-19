@@ -39,4 +39,19 @@ def db():
         database.close()
 
     get_db.del_db()
+
+@pytest.fixture
+def login(client, db):
+    response = client.post(
+        '/auth/token',
+        data={
+            'username': 'default_user',
+            'password': 'passw0rd!'
+        },
+        headers={
+            'Content-Type': 'application/x-www-form-urlencoded'
+        }
+    )
+
+    yield response.json()
     

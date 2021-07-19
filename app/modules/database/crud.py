@@ -1,4 +1,5 @@
-from . import get_db, models, schemas
+from app.modules.schemas import schemas
+from . import get_db, models
 
 db = get_db()
 
