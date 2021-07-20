@@ -5,7 +5,8 @@ VALUES
     ('multy_description_user', 'test_password', 1, '["default"]'),
     ('no_description_user', 'test_password', 1, '["default"]'),
     ('disabled_user', "$2b$12$j4pNHP1Ni4sXa1NOrO8Ww.vs9/Fq0Sa39lfFBXIiozLeMGluS.yui", 0, '["default"]'),
-    ('admin_user', "$2b$12$j4pNHP1Ni4sXa1NOrO8Ww.vs9/Fq0Sa39lfFBXIiozLeMGluS.yui", 1, '["admin"]')
+    ('admin_user', "$2b$12$j4pNHP1Ni4sXa1NOrO8Ww.vs9/Fq0Sa39lfFBXIiozLeMGluS.yui", 1, '["admin"]'),
+    ('disabled_admin', "$2b$12$j4pNHP1Ni4sXa1NOrO8Ww.vs9/Fq0Sa39lfFBXIiozLeMGluS.yui", 0, '["admin"]');
 
 ---
 

@@ -37,7 +37,7 @@ async def get_current_user(token: str = Depends(oauth2_scheme)):
 async def get_current_active_user(current_user: schemas.User = Depends(get_current_user)):
 
     if not current_user.status == 1:
-        raise HTTPException(400, "Inactive user")
+        raise HTTPException(422, "Inactive user")
 
     return current_user
 

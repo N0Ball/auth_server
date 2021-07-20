@@ -1,10 +1,9 @@
-from app.modules.lib.core import get_role
-from fastapi import APIRouter, Depends, HTTPException
+from fastapi import APIRouter, Depends
 from fastapi.security import OAuth2PasswordRequestForm
 
 from app.modules.core import auth, user
-from app.modules.schemas import token
-from app.modules.schemas import schemas
+from app.modules.schemas import token, schemas
+from app.modules.lib import core
 
 router = APIRouter(
     prefix='/auth',
@@ -20,9 +19,7 @@ router = APIRouter(
 @router.post('/create/user')
 async def register(new_user: schemas.UserCreate, current_user: schemas.User = Depends(auth.get_current_active_user)):
 
-    if 'admin' not in get_role(current_user.roles):
-        raise HTTPException(403, "Operation is forbidden")
-
+    core.check_role(current_user, 'admin')
     return user.create_user(new_user)
 
 @router.post("/token", response_model=token.Token)

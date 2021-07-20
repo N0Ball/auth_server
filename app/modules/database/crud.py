@@ -1,3 +1,5 @@
+from typing import List
+
 from app.modules.schemas import schemas
 from . import get_db, models
 
@@ -15,3 +17,6 @@ def get_user_by_id(id: int) -> models.User:
 
 def get_user_by_name(name: str) -> models.User:
     return db.query(models.User).filter(models.User.name == name).first()
+
+def get_all_users() -> List[models.User]:
+    return db.query(models.User).all()

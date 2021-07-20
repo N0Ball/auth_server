@@ -32,7 +32,7 @@ class UserInfo(UserInfoBase):
 class User(UserBase):
     uid: int
     status: int
-    roles: Optional[str] = None
+    roles: str
 
     informations: List[UserInfo]
 
