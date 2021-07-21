@@ -3,8 +3,8 @@ import pytest
 from fastapi.testclient import TestClient
 
 @pytest.mark.parametrize(('id', 'name', 'infos'), (
-    ('2', 'one_description_user', [{'description': 'email', 'information': 'test1@gmail.com'}]),
-    ('3', 'multy_description_user', [{'description': 'email', 'information': 'test2@gmail.com'}, {'description': 'tag', 'information': 'good_user'}]),
+    ('2', 'one_description_user', [{'description': 'email', 'information': 'test1@gmail.com', 'user': 'one_description_user'}]),
+    ('3', 'multy_description_user', [{'description': 'email', 'information': 'test2@gmail.com', 'user': 'multy_description_user'}, {'description': 'tag', 'information': 'good_user', 'user': 'multy_description_user'}]),
     ('4', 'no_description_user', [])
 ))
 def test_get_user_by_id(client: TestClient, db, id, name, infos, access_token):

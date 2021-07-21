@@ -44,7 +44,6 @@ class UserInfoDescription(Base):
     create_time = Column(DateTime, default=datetime.utcnow)
     update_time = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
 
-    information_relation = relationship("UserInfo", back_populates='description_relation')
-    users = association_proxy('information_relation', 'user')
+    informations = relationship("UserInfo", back_populates='description_relation')
     
 

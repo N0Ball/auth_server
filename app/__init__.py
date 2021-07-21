@@ -14,9 +14,10 @@ def create_app():
 
     logger.setLevel(app.extra['config'].LOG)
 
-    from app.routes import base, auth, user
+    from app.routes import base, auth, user, description
     app.include_router(base.router)
     app.include_router(auth.router)
     app.include_router(user.router)
+    app.include_router(description.router)
 
     return app

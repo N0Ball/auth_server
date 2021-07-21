@@ -19,12 +19,13 @@ class UserInfoCreate(UserInfoBase):
 class UserInfoDescriptionBase(BaseModel):
     name: str
 
-class UserInfoCreate(UserInfoDescriptionBase):
+class UserInfoDescriptionCreate(UserInfoDescriptionBase):
     pass
 
 class UserInfo(UserInfoBase):
     information: str
     description: str
+    user: str
 
     class Config:
         orm_mode = True
@@ -40,8 +41,7 @@ class User(UserBase):
         orm_mode = True
 
 class UserInfoDescription(UserInfoDescriptionBase):
-    users: List[str]
-    information: str
+    informations: List[UserInfo]
 
     class Config:
         orm_mode = True

@@ -20,3 +20,22 @@ def get_user_by_name(name: str) -> models.User:
 
 def get_all_users() -> List[models.User]:
     return db.query(models.User).all()
+
+def create_descriptions(description: schemas.UserInfoDescriptionCreate) -> bool:
+    new_description = models.UserInfoDescription(**description.dict())
+    db.add(new_description)
+    db.commit()
+    db.refresh(new_description)
+    return new_description
+
+def get_description(id: int = None, name: str = None) -> models.UserInfoDescription:
+
+    model = models.UserInfoDescription
+
+    if id is not None:
+        description = db.query(model).filter(model.id == id).first()
+    
+    if name is not None:
+        description = db.query(model).filter(model.name == name).first()
+
+    return description
