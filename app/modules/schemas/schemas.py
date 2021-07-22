@@ -7,6 +7,7 @@ class UserBase(BaseModel):
 
 class UserCreate(UserBase):
     password: str
+    roles: Optional[str] = None
 
 class UserInfoBase(BaseModel):
     information: str
@@ -18,12 +19,13 @@ class UserInfoCreate(UserInfoBase):
 class UserInfoDescriptionBase(BaseModel):
     name: str
 
-class UserInfoCreate(UserInfoDescriptionBase):
+class UserInfoDescriptionCreate(UserInfoDescriptionBase):
     pass
 
 class UserInfo(UserInfoBase):
     information: str
     description: str
+    user: str
 
     class Config:
         orm_mode = True
@@ -31,7 +33,7 @@ class UserInfo(UserInfoBase):
 class User(UserBase):
     uid: int
     status: int
-    role: Optional[str] = None
+    roles: str
 
     informations: List[UserInfo]
 
@@ -39,8 +41,7 @@ class User(UserBase):
         orm_mode = True
 
 class UserInfoDescription(UserInfoDescriptionBase):
-    users: List[str]
-    information: str
+    informations: List[UserInfo]
 
     class Config:
         orm_mode = True

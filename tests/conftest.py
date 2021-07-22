@@ -1,3 +1,4 @@
+import datetime
 import pytest
 
 from fastapi.testclient import TestClient
@@ -6,6 +7,7 @@ from app.config.config import config, BASEDIR
 config.set_mode("testing")
 
 from app import create_app
+from app.modules.core import auth
 from app.modules.database import get_db
 
 @pytest.fixture
@@ -39,4 +41,16 @@ def db():
         database.close()
 
     get_db.del_db()
-    
+
+@pytest.fixture
+def access_token() -> object:
+
+    def get(username, expires=False):
+        data={"sub": username}
+
+        if expires:
+            return auth.create_access_token(data, expires_delta=datetime.timedelta(minutes=-15))
+
+        return auth.create_access_token(data, expires_delta=datetime.timedelta(minutes=15))
+
+    yield get

@@ -14,7 +14,7 @@ class User(Base):
     name = Column(String(30), unique=True, nullable=False, index=True)
     password = Column(String(128), comment="hashed password")
     status = Column(Integer, default=1, nullable=False, comment="0: deleted, 1: active")
-    roles = Column(String(512), default='[]', comment="List of roles the user has")
+    roles = Column(String(512), default='["default"]', nullable=False, comment="List of roles the user has")
     create_time = Column(DateTime, default=datetime.utcnow)
     update_time = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
 
@@ -44,7 +44,6 @@ class UserInfoDescription(Base):
     create_time = Column(DateTime, default=datetime.utcnow)
     update_time = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
 
-    information_relation = relationship("UserInfo", back_populates='description_relation')
-    users = association_proxy('information_relation', 'user')
+    informations = relationship("UserInfo", back_populates='description_relation')
     
 

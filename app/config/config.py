@@ -1,4 +1,3 @@
-from io import SEEK_CUR
 import os
 from dotenv import load_dotenv
 load_dotenv()
@@ -7,12 +6,15 @@ from sqlalchemy import create_engine
 
 BASEDIR = os.getcwd()
 SECRET_KEY = os.getenv("SECRET_KEY")
+ALGORITHM = os.getenv("ALGORITHM")
+ACCESS_TOKEN_EXPIRE_MINUTES = int(os.getenv("ACCESS_TOKEN_EXPIRE_MINUTES"))
 
 def create_sqlite_uri(db_name):
     return "sqlite:///" + os.path.join(BASEDIR, 'tests', db_name)
 
 class BaseConfig:
     SECRET_KEY = SECRET_KEY
+    ALGORITHM = ALGORITHM
     MODE = "Default"
     ENGINE = "No Engine"
     LOG = "DEBUG"
@@ -29,6 +31,7 @@ class DevelopmentConfig(BaseConfig):
 
 class TestingConfig(BaseConfig):
     MODE = "TESTING"
+    SECRET_KEY = "SECRET_KEY"
     DEBUG = True
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     SQLALCHEMY_DATABASE_URI = create_sqlite_uri("test.db")
